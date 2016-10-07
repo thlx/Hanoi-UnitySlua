@@ -167,7 +167,8 @@ public class HanoiUtil
         else {
             if (IsTimeRangeInScreenClipRange((float)n.beginTime , (float)n.beginTime+ (float)n.timeConsuming))
             {
-                n.renderRect = new Rect((float)n.beginTime, HanoiVars.StackHeight * (HanoiVars.DrawnStackCount - n.stackLevel), (float)n.timeConsuming, HanoiVars.StackHeight);
+                n.renderRect = new Rect((float)n.beginTime,HanoiVars.StackHeight * (HanoiVars.DrawnStackCount - n.stackLevel)
+                    , (float)n.timeConsuming, HanoiVars.StackHeight);
                 Handles.DrawSolidRectangleWithOutline(n.renderRect, c, n.highlighted ? Color.white : c);
             }
         }
