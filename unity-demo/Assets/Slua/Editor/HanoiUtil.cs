@@ -109,7 +109,7 @@ public class HanoiUtil
 
             if (mouseX >= hfi.frameTime && mouseX <= hfi.frameEndTime)
             {
-                float beginPosX = hfi.frameEndTime;
+                float beginPosX = hfi.frameTime;
                 Rect r = new Rect();
                 r.position = new Vector2(beginPosX, 0);
                 r.width = HanoiVars.LabelBackgroundWidth / 1.5f;
