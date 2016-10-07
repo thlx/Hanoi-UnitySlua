@@ -51,26 +51,31 @@ using System.Collections;
              Handles.matrix = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, new Vector3(1, 1, 1));
              //control窗口内容
              GUILayout.BeginArea(new Rect(0, m_controlScreenPosY, m_winWidth, m_controlScreenHeight));
-             Rect w = new Rect();
-             w.position = new Vector2(0, 0);
-             w.width = m_winWidth;
-             w.height = m_controlScreenHeight;
-             Color bgw = Color.green;
-             bgw.a = 0.5f;
-             Handles.DrawSolidRectangleWithOutline(w, bgw, bgw);
-             drawGUIElement();
+             {
+                 Rect w = new Rect();
+                 w.position = new Vector2(0, 0);
+                 w.width = m_winWidth;
+                 w.height = m_controlScreenHeight;
+                 Color bgw = Color.green;
+                 bgw.a = 0.5f;
+                 Handles.DrawSolidRectangleWithOutline(w, bgw, bgw);
+                 drawGUIElement();
+             }
              GUILayout.EndArea();
-             ////navigation窗口内容
-             //GUILayout.BeginArea(new Rect(0,m_navigationScreenPosY, m_winWidth, m_navigationScreenHeight));
-             //    Rect r = new Rect();
-             //    r.position = new Vector2(0,0);
-             //    r.width = m_winWidth;
-             //    r.height = m_navigationScreenHeight;
-             //    Color bg = Color.red;
-             //    bg.a = 0.5f;
-             //    Handles.DrawSolidRectangleWithOutline(r, bg, bg);
-             //GUILayout.EndArea();
-             if (m_data.isHanoiDataLoadSucc()) {
+             //navigation窗口内容
+             GUILayout.BeginArea(new Rect(0, m_navigationScreenPosY, m_winWidth, m_navigationScreenHeight));
+             {
+                 Rect r = new Rect();
+                 r.position = new Vector2(0, 0);
+                 r.width = m_winWidth;
+                 r.height = m_navigationScreenHeight;
+                 Color bg = Color.red;
+                 bg.a = 0.5f;
+                 Handles.DrawSolidRectangleWithOutline(r, bg, bg);
+             }
+             GUILayout.EndArea();
+             if (m_data.isHanoiDataLoadSucc())
+             {
                  CheckForInput();
                  //detail窗口内容
                  GUILayout.BeginArea(new Rect(0, m_detailScreenPosY, m_winWidth, m_detailScreenHeight));
@@ -350,14 +355,14 @@ using System.Collections;
                              Debug.LogFormat("Picked nothing.");
                          }
 
-                         Repaint();
-                         //if (EditorWindow.focusedWindow == this) {
-                         //    if ((Event.current.mousePosition.x >= 0 && Event.current.mousePosition.x<= m_winWidth) &&
-                         //        (Event.current.mousePosition.y >= m_detailScreenPosY &&Event.current.mousePosition.y <= m_winHeight))
-                         //    {
-                         //        Repaint();
-                         //    }
-                         //}
+                         if (EditorWindow.focusedWindow == this)
+                         {
+                             if ((Event.current.mousePosition.x >= 0 && Event.current.mousePosition.x <= m_winWidth) &&
+                                 (Event.current.mousePosition.y >= m_detailScreenPosY && Event.current.mousePosition.y <= m_winHeight))
+                             {
+                                 Repaint();
+                             }
+                         }
                      }
                      break;
                  case EventType.MouseDrag:
