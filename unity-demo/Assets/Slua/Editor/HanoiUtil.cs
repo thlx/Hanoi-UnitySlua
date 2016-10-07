@@ -88,7 +88,11 @@ public class HanoiUtil
                 if (preFrameStartTime>0)
                 {
                     HanoiFrameInfo hfiChild=(HanoiFrameInfo)n.Children[preFrameIndex];
-                    hfiChild.frameEndTime = hfi.frameTime;
+                    //只记录相邻帧的前帧结束时间，非相邻帧信息不显示
+                    if (hfi.frameID - hfiChild.frameID == 1)
+                    {
+                        hfiChild.frameEndTime = hfi.frameTime;
+                    }
                 }
                 preFrameIndex = i;
                 preFrameStartTime = hfi.frameTime;
