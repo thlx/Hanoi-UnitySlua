@@ -1,9 +1,9 @@
 ﻿ using UnityEngine;
  using UnityEditor;
  using System.Collections.Generic;
-using System;
 using System.IO;
 using System.Collections;
+using System.Security;
      public class VisualizerWindow : EditorWindow
      {
          [SerializeField]
@@ -31,13 +31,26 @@ using System.Collections;
          [MenuItem("Window/VisualizerWindow")]
          static void Create()
          {
-             // Get existing open window or if none, make a new one:
+
+             //GraphItWindow window2 = (GraphItWindow)EditorWindow.GetWindow(typeof(GraphItWindow), false, "GraphIt " + GraphIt.VERSION);
+             //window2.minSize = new Vector2(230f, 350f);
+             //window2.Show();
+             //// Get existing open window or if none, make a new one:
              VisualizerWindow window = (VisualizerWindow)EditorWindow.GetWindow(typeof(VisualizerWindow));
              window.Show();
              window.wantsMouseMove = true;
              window.CheckForResizing();
+
              //window.fitScreenSizeScale();
          }
+
+         void Update()
+         {
+             GraphIt.StepGraph("ok");
+             GraphIt.Log("ok", Random.Range(0.2f, 0.5f));
+             Repaint();
+         }
+
 
          public VisualizerWindow()
          {
@@ -65,13 +78,15 @@ using System.Collections;
              //navigation窗口内容
              GUILayout.BeginArea(new Rect(0, m_navigationScreenPosY, m_winWidth, m_navigationScreenHeight));
              {
-                 Rect r = new Rect();
-                 r.position = new Vector2(0, 0);
-                 r.width = m_winWidth;
-                 r.height = m_navigationScreenHeight;
-                 Color bg = Color.red;
-                 bg.a = 0.5f;
-                 Handles.DrawSolidRectangleWithOutline(r, bg, bg);
+                 //Rect r = new Rect();
+                 //r.position = new Vector2(0, 0);
+                 //r.width = m_winWidth;
+                 //r.height = m_navigationScreenHeight;
+                 //Color bg = Color.red;
+                 //bg.a = 0.5f;
+                 //Handles.DrawSolidRectangleWithOutline(r, bg, bg);
+
+                 GraphItWindow.DrawGraphs(position, this);
              }
              GUILayout.EndArea();
              if (m_data.isHanoiDataLoadSucc())
@@ -126,7 +141,7 @@ using System.Collections;
                  calculateStackHeight();
                  _selectedJsonFileIndex = currentSelectedIndex;
              }
-             catch (Exception ex)
+             catch (System.Exception ex)
              {
                  _selectedJsonFileIndex = -1;
                  Debug.LogErrorFormat("[Hanoi] Loading session failed. ({0})", ex.Message);
@@ -158,7 +173,7 @@ using System.Collections;
                 }
                 _JsonFilesPath = files;
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 Debug.LogException(ex);
                 _JsonFilesPath = new string[] { };
@@ -276,6 +291,7 @@ using System.Collections;
              m_controlScreenHeight = m_winHeight - m_detailScreenHeight - m_navigationScreenHeight;
              m_controlScreenPosY = 0.0f;
 
+             GraphIt.GraphSetupHeight("ok",m_navigationScreenHeight);
          }
 
          private void calculateStackHeight() {
