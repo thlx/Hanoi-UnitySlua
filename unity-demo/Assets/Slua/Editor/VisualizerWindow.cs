@@ -31,23 +31,18 @@ using System.Security;
          [MenuItem("Window/VisualizerWindow")]
          static void Create()
          {
-
-             //GraphItWindow window2 = (GraphItWindow)EditorWindow.GetWindow(typeof(GraphItWindow), false, "GraphIt " + GraphIt.VERSION);
-             //window2.minSize = new Vector2(230f, 350f);
-             //window2.Show();
              //// Get existing open window or if none, make a new one:
              VisualizerWindow window = (VisualizerWindow)EditorWindow.GetWindow(typeof(VisualizerWindow));
              window.Show();
              window.wantsMouseMove = true;
              window.CheckForResizing();
-
              //window.fitScreenSizeScale();
          }
 
          void Update()
          {
              GraphIt.StepGraph("ok");
-             GraphIt.Log("ok", Random.Range(0.2f, 0.5f));
+             GraphIt.Log("ok", Random.Range(0.0f,1.0f));
              Repaint();
          }
 
@@ -85,7 +80,6 @@ using System.Security;
                  //Color bg = Color.red;
                  //bg.a = 0.5f;
                  //Handles.DrawSolidRectangleWithOutline(r, bg, bg);
-
                  GraphItWindow.DrawGraphs(position, this);
              }
              GUILayout.EndArea();
